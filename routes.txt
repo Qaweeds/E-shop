@@ -1,0 +1,62 @@
++--------+-----------+----------------------------------+------------------------+---------------------------------------------------------------+----------------------------------------------+
+| Domain | Method    | URI                              | Name                   | Action                                                        | Middleware                                   |
++--------+-----------+----------------------------------+------------------------+---------------------------------------------------------------+----------------------------------------------+
+|        | GET|HEAD  | /                                | home                   | App\Http\Controllers\HomeController@index                     | web                                          |
+|        | GET|HEAD  | _debugbar/assets/javascript      | debugbar.assets.js     | Barryvdh\Debugbar\Controllers\AssetController@js              | Barryvdh\Debugbar\Middleware\DebugbarEnabled |
+|        |           |                                  |                        |                                                               | Closure                                      |
+|        | GET|HEAD  | _debugbar/assets/stylesheets     | debugbar.assets.css    | Barryvdh\Debugbar\Controllers\AssetController@css             | Barryvdh\Debugbar\Middleware\DebugbarEnabled |
+|        |           |                                  |                        |                                                               | Closure                                      |
+|        | DELETE    | _debugbar/cache/{key}/{tags?}    | debugbar.cache.delete  | Barryvdh\Debugbar\Controllers\CacheController@delete          | Barryvdh\Debugbar\Middleware\DebugbarEnabled |
+|        |           |                                  |                        |                                                               | Closure                                      |
+|        | GET|HEAD  | _debugbar/clockwork/{id}         | debugbar.clockwork     | Barryvdh\Debugbar\Controllers\OpenHandlerController@clockwork | Barryvdh\Debugbar\Middleware\DebugbarEnabled |
+|        |           |                                  |                        |                                                               | Closure                                      |
+|        | GET|HEAD  | _debugbar/open                   | debugbar.openhandler   | Barryvdh\Debugbar\Controllers\OpenHandlerController@handle    | Barryvdh\Debugbar\Middleware\DebugbarEnabled |
+|        |           |                                  |                        |                                                               | Closure                                      |
+|        | GET|HEAD  | _debugbar/telescope/{id}         | debugbar.telescope     | Barryvdh\Debugbar\Controllers\TelescopeController@show        | Barryvdh\Debugbar\Middleware\DebugbarEnabled |
+|        |           |                                  |                        |                                                               | Closure                                      |
+|        | GET|HEAD  | admin/categories                 | admin.category.index   | App\Http\Controllers\Admin\CategoryController@index           | web                                          |
+|        |           |                                  |                        |                                                               | admin                                        |
+|        | POST      | admin/categories                 | admin.category.store   | App\Http\Controllers\Admin\CategoryController@store           | web                                          |
+|        |           |                                  |                        |                                                               | admin                                        |
+|        | GET|HEAD  | admin/categories/create          | admin.category.create  | App\Http\Controllers\Admin\CategoryController@create          | web                                          |
+|        |           |                                  |                        |                                                               | admin                                        |
+|        | GET|HEAD  | admin/categories/{category}      | admin.category.show    | App\Http\Controllers\Admin\CategoryController@show            | web                                          |
+|        |           |                                  |                        |                                                               | admin                                        |
+|        | PUT|PATCH | admin/categories/{category}      | admin.category.update  | App\Http\Controllers\Admin\CategoryController@update          | web                                          |
+|        |           |                                  |                        |                                                               | admin                                        |
+|        | DELETE    | admin/categories/{category}      | admin.category.destroy | App\Http\Controllers\Admin\CategoryController@destroy         | web                                          |
+|        |           |                                  |                        |                                                               | admin                                        |
+|        | GET|HEAD  | admin/categories/{category}/edit | admin.category.edit    | App\Http\Controllers\Admin\CategoryController@edit            | web                                          |
+|        |           |                                  |                        |                                                               | admin                                        |
+|        | GET|HEAD  | admin/products                   | admin.products.index   | App\Http\Controllers\Admin\ProductController@index            | web                                          |
+|        |           |                                  |                        |                                                               | admin                                        |
+|        | POST      | admin/products                   | admin.products.store   | App\Http\Controllers\Admin\ProductController@store            | web                                          |
+|        |           |                                  |                        |                                                               | admin                                        |
+|        | GET|HEAD  | admin/products/create            | admin.products.create  | App\Http\Controllers\Admin\ProductController@create           | web                                          |
+|        |           |                                  |                        |                                                               | admin                                        |
+|        | GET|HEAD  | admin/products/{product}         | admin.products.show    | App\Http\Controllers\Admin\ProductController@show             | web                                          |
+|        |           |                                  |                        |                                                               | admin                                        |
+|        | PUT|PATCH | admin/products/{product}         | admin.products.update  | App\Http\Controllers\Admin\ProductController@update           | web                                          |
+|        |           |                                  |                        |                                                               | admin                                        |
+|        | DELETE    | admin/products/{product}         | admin.products.destroy | App\Http\Controllers\Admin\ProductController@destroy          | web                                          |
+|        |           |                                  |                        |                                                               | admin                                        |
+|        | GET|HEAD  | admin/products/{product}/edit    | admin.products.edit    | App\Http\Controllers\Admin\ProductController@edit             | web                                          |
+|        |           |                                  |                        |                                                               | admin                                        |
+|        | GET|HEAD  | admin/users                      | admin.user.index       | App\Http\Controllers\Admin\UserController@index               | web                                          |
+|        |           |                                  |                        |                                                               | admin                                        |
+|        | POST      | admin/users                      | admin.user.store       | App\Http\Controllers\Admin\UserController@store               | web                                          |
+|        |           |                                  |                        |                                                               | admin                                        |
+|        | GET|HEAD  | admin/users/create               | admin.user.create      | App\Http\Controllers\Admin\UserController@create              | web                                          |
+|        |           |                                  |                        |                                                               | admin                                        |
+|        | GET|HEAD  | admin/users/{user}               | admin.user.show        | App\Http\Controllers\Admin\UserController@show                | web                                          |
+|        |           |                                  |                        |                                                               | admin                                        |
+|        | PUT|PATCH | admin/users/{user}               | admin.user.update      | App\Http\Controllers\Admin\UserController@update              | web                                          |
+|        |           |                                  |                        |                                                               | admin                                        |
+|        | DELETE    | admin/users/{user}               | admin.user.destroy     | App\Http\Controllers\Admin\UserController@destroy             | web                                          |
+|        |           |                                  |                        |                                                               | admin                                        |
+|        | GET|HEAD  | admin/users/{user}/edit          | admin.user.edit        | App\Http\Controllers\Admin\UserController@edit                | web                                          |
+|        |           |                                  |                        |                                                               | admin                                        |
+|        | GET|HEAD  | api/user                         |                        | Closure                                                       | api                                          |
+|        |           |                                  |                        |                                                               | App\Http\Middleware\Authenticate:sanctum     |
+|        | GET|HEAD  | sanctum/csrf-cookie              |                        | Laravel\Sanctum\Http\Controllers\CsrfCookieController@show    | web                                          |
++--------+-----------+----------------------------------+------------------------+---------------------------------------------------------------+----------------------------------------------+

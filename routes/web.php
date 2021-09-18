@@ -15,5 +15,10 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::get('/', 'HomeController@index')->name('home');
-Route::resource('products', 'ProductController');
-Route::resource('categories', 'CategoryController');
+
+Route::middleware('admin')->namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
+
+    Route::resource('users', 'UserController')->names('user');
+    Route::resource('categories', 'CategoryController')->names('category')->except('show');
+    Route::resource('products', 'ProductController')->names('products')->except('show');
+});
