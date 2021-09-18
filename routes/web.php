@@ -28,9 +28,9 @@ Route::middleware('auth')->namespace('Account')->prefix('account')->group(functi
     Route::post('/update', 'AccountController@update')->name('account.update');
 });
 
-Route::middleware('admin')->namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
+Route::middleware(['auth', 'admin'])->namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
 
     Route::resource('users', 'UserController')->names('users');
-    Route::resource('categories', 'CategoryController')->names('categories')->except(['show','destroy']);
+    Route::resource('categories', 'CategoryController')->names('categories')->except(['show', 'destroy']);
     Route::resource('products', 'ProductController')->names('products')->except('show');
 });
