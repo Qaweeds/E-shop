@@ -18,6 +18,7 @@ class Product extends Model
         'discount',
         'in_stock',
         'thumbnail',
+        'category_id',
     ];
 
 

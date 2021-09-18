@@ -4,7 +4,7 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-12">
-                <h3 class="text-center">{{__('All Categories')}}</h3>
+                <h3 class="text-center">{{__('All Products')}}</h3>
             </div>
 
             <div class="col-md-6">

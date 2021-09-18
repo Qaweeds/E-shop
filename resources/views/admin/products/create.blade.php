@@ -1,10 +1,31 @@
 @extends('layouts.app')
 @section('content')
+
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
     <div class="container">
-        <div class="col-md-12">
+        <div class="col-md-6">
             <h3 class="text-center">{{__('New Product')}}</h3>
             <form action="{{route('admin.products.store')}}" method="POST" enctype="multipart/form-data">
                 @csrf
+
+                <div class="form-group">
+                    <label for="category_id">Category</label>
+                    <select type="text" id="category_id" name="category_id" class="form-control">
+                        @foreach($categories as $category)
+                            <option value="{{$category->id}}" @if(old('category_id') == $category->id) selected @endif >{{$category->name}}</option>
+                        @endforeach
+                    </select>
+                </div>
+
                 <div class="form-group">
                     <label for="title">Title</label>
                     <input type="text" id="title" name="title" value="{{old('title')}}" class="form-control">
@@ -12,8 +33,8 @@
 
                 <div class="form-group">
                     <label for="description">Descripton</label>
-                    <input type="text" id="description" name='description' value="{{old('description')}}"
-                           class="form-control">
+                    <textarea rows="10" type="text" id="description" name='description'
+                              class="form-control">{{old('description')}}</textarea>
                 </div>
 
                 <div class="form-group">
@@ -36,7 +57,7 @@
 
                 <div class="form-group">
                     <label for="discount">Discount</label>
-                    <input type="number" min="0" id="discount" name='discount' value="{{old('discount')}}"
+                    <input type="number" min="0" id="discount" name='discount' value="{{old('discount', 0)}}"
                            class="form-control">
                 </div>
 
@@ -47,8 +68,8 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="photo">Photo</label>
-                    <input type="file" id="photo" name="photo">
+                    <label for="thumbnail">Photo</label>
+                    <input type="file" id="thumbnail" name="thumbnail">
                 </div>
 
                 <div>
