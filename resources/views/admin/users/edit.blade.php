@@ -3,10 +3,10 @@
 @section('content')
     <div class="container">
         <div class="col-md-12">
-            <h3 class="text-center">{{__("Edit your personal account")}}</h3>
+            <h3 class="text-center">{{__("Edit user: " . $user->name)}}</h3>
 
-            <form action="{{route('account.update')}}" method="POST">
-                @csrf
+            <form action="{{route('admin.users.update', $user->id)}}" method="POST">
+                @csrf @method('PUT')
                 <div class="form-group row">
                     <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>
                     <div class="col-md-6">
@@ -46,6 +46,10 @@
                 </div>
                 <div>
                     <button type="submit" class="btn btn-primary">Update</button>
+                    <form action="{{route('admin.users.destroy', $user->id)}}" method="POST">
+                        @csrf @method('DELETE')
+                        <button type="submit" class="btn btn-danger">DELETE</button>
+                    </form>
                 </div>
             </form>
         </div>

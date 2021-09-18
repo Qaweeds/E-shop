@@ -26,7 +26,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-//        Auth::loginUsingId(1);
+
+//        Auth::loginUsingId(1);      //тут можно залогинится
 
         Schema::defaultStringLength(191);
         Paginator::useBootstrap();

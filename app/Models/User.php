@@ -50,11 +50,17 @@ class User extends Authenticatable
 
     public function role()
     {
-        $this->belongsTo(Role::class);
+        return $this->belongsTo(Role::class);
     }
 
     public function orders()
     {
         return $this->hasMany(Order::class);
     }
+
+    public function is_admin()
+    {
+        return $this->role->name === config('constants.db.roles.admin');
+    }
+
 }

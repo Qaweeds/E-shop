@@ -19,11 +19,11 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    @foreach($categories as $category)
+                                    @foreach($users as $user)
                                         <tr>
-                                            <td class="text-center"><a href="{{route('admin.categories.edit', $category->id)
-                                            }}">{{$category->name}}</a></td>
-                                            <td class="text-center"> {{$category->products_count }}</td>
+                                            <td class="text-center"><a href="{{route('admin.users.show', $user->id)}}">{{$user->name}}</a></td>
+                                            <td class="text-center"><a href="{{route('admin.users.edit', $user->id)}}" class="btn btn-light">Edit</a>
+                                            </td>
                                         </tr>
                                     @endforeach
                                     </tbody>
@@ -33,9 +33,6 @@
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="row justify-content-center">
-            <a href="{{route('admin.categories.create')}}" class="btn btn-primary">Создать</a>
         </div>
     </div>
 @endsection

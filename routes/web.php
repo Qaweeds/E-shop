@@ -30,7 +30,7 @@ Route::middleware('auth')->namespace('Account')->prefix('account')->group(functi
 
 Route::middleware('admin')->namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
 
-    Route::resource('users', 'UserController')->names('user');
-    Route::resource('categories', 'CategoryController')->names('category')->except('show');
+    Route::resource('users', 'UserController')->names('users');
+    Route::resource('categories', 'CategoryController')->names('categories')->except(['show','destroy']);
     Route::resource('products', 'ProductController')->names('products')->except('show');
 });
