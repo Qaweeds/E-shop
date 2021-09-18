@@ -5,9 +5,20 @@
             <h3 class="text-center">{{__('Edit '. $product->title)}}</h3>
             <form action="{{route('admin.products.update', $product->id)}}" method="POST" enctype="multipart/form-data">
                 @csrf @method('PUT')
+
+                <div class="form-group">
+                    <label for="category_id">Category</label>
+                    <select type="text" id="category_id" name="category_id" class="form-control">
+                        @foreach($categories as $category)
+                            <option value="{{$category->id}}" @if($product->category_id == $category->id) selected @endif
+                            >{{$category->name}}</option>
+                        @endforeach
+                    </select>
+                </div>
+
                 <div class="form-group">
                     <label for="title">Title</label>
-                    <input type="text" id="title" name="title" value="{{old('title', $product->title)}}" class="form-control">
+                    <input type="text" id="title" name="title" value="{{old('title', $product->title)}}" class="form-control" disabled>
                 </div>
 
                 <div class="form-group">
@@ -26,12 +37,12 @@
                 <div class="form-group">
                     <label for="SKU">SKU</label>
                     <input type="text" id="SKU" name='SKU' value="{{old('SKU', $product->SKU)}}"
-                           class="form-control">
+                           class="form-control" disabled>
                 </div>
 
                 <div class="form-group">
                     <label for="price">Price</label>
-                    <input type="number" min="1" id="price" name='price' value="{{old('price', $product->price)}}"
+                    <input type="number" min="1" id="price" name='price' step="0.01" value="{{old('price', $product->price)}}"
                            class="form-control">
                 </div>
 

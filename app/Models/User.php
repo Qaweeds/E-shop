@@ -6,6 +6,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Hash;
 use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
@@ -63,4 +64,15 @@ class User extends Authenticatable
         return $this->role->name === config('constants.db.roles.admin');
     }
 
+    public static function registerUser($data)
+    {
+        $role_id = Role::query()->where('name', config('constants.db.roles.costumer'))->value('id');
+
+        $user = (new User)->fill($data);
+        $user->role_id = $role_id;
+        $user->password = Hash::make($data['password']);
+
+        if ($user->save()) return $user;
+        return $user->save();
+    }
 }
