@@ -22,17 +22,15 @@
 <body>
 
 <div id="app">
+    <div class="col-md-5 m-auto text-center">
+        @if(session('status'))
+            <div class="alert alert-success">
+                {{session('status')}}
+            </div>
+        @endif
+    </div>
     <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
         <div class="container">
-
-            <div class="col-md-12">
-                @if(session('status'))
-                    <div class="alert alert-success">
-                        {{session('status')}}
-                    </div>
-                @endif
-            </div>
-
             <a class="navbar-brand" href="{{ url('/') }}">
                 {{ config('app.name', 'Laravel') }}
             </a>
@@ -86,10 +84,13 @@
             </div>
         </div>
     </nav>
-
+    @if(auth()->user()->is_admin() && (Request::is('admin/*') ||(Request::is('admin'))))
+        @include('navigation.admin-menu');
+    @endif
     <main class="py-4">
         @yield('content')
     </main>
+
 </div>
 </body>
 </html>

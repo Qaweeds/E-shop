@@ -8,10 +8,9 @@ use App\Http\Requests\ProductUpdateRequest;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\ProductImage;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 
-class ProductController extends Controller
+
+class ProductController extends BaseController
 {
 
     public function index()
@@ -52,7 +51,7 @@ class ProductController extends Controller
 
     public function update(ProductUpdateRequest $request, Product $product)
     {
-        $data = $request->all();
+        $data = $request->validated();
 
         if ($product->update($data)) return redirect()->route('admin.products.index')->with('status', 'Product update successfully');
     }

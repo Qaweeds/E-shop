@@ -69,6 +69,13 @@
                            class="form-control">
                 </div>
                 <div>
+                    <img class="mb-1" style="max-width: 300px; max-height: 200px;" id="thumbnail-preview"/>
+                </div>
+                <div class="form-group">
+                    <label for="thumbnail">{{__('Thumbnail')}}</label>
+                    <input type="file" id="thumbnail" name="thumbnail">
+                </div>
+                <div>
                     <button type="submit" class="btn btn-primary">Update</button>
 
                 </div>
@@ -81,5 +88,18 @@
             </div>
         </div>
     </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function (e) {
+            $('#thumbnail').change(function () {
+                let reader = new FileReader();
+                reader.onload = (e) => {
+                    $('#thumbnail-preview').attr('src', e.target.result);
+                }
+                reader.readAsDataURL(this.files[0]);
+            });
+        });
+    </script>
 
 @endsection

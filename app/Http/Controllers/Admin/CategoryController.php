@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
-use App\Models\Category;
-use Illuminate\Http\Request;
 
-class CategoryController extends Controller
+use App\Http\Requests\CategoryCreateRequest;
+use App\Http\Requests\CategoryUpdateRequest;
+use App\Models\Category;
+
+
+class CategoryController extends BaseController
 {
 
     public function index()
@@ -23,9 +25,10 @@ class CategoryController extends Controller
     }
 
 
-    public function store(Request $request)
+    public function store(CategoryCreateRequest $request)
     {
-        dd(__METHOD__, $request->all());
+        if (Category::query()->create($request->validated())) return redirect()->route('admin.categories.index')
+            ->with('status', 'Категория успешно создана');
     }
 
     public function edit(Category $category)
@@ -34,9 +37,10 @@ class CategoryController extends Controller
     }
 
 
-    public function update(Request $request, Category $category)
+    public function update(CategoryUpdateRequest $request, Category $category)
     {
-        dd(__METHOD__, $category, $request);
+        if ($category->update($request->validated())) return redirect()->route('admin.categories.index')
+            ->with('status', 'Категория успешно создана');
 
     }
 

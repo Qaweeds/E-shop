@@ -12,6 +12,8 @@
     @endif
 
     <div class="container">
+
+        <div class="images-wrapper"></div>
         <div class="col-md-6">
             <h3 class="text-center">{{__('New Product')}}</h3>
             <form action="{{route('admin.products.store')}}" method="POST" enctype="multipart/form-data">
@@ -66,7 +68,9 @@
                     <input type="number" min="0" id="in_stock" name='in_stock' value="{{old('in_stock')}}"
                            class="form-control">
                 </div>
-
+                <div>
+                    <img class="mb-1" style="max-width: 300px; max-height: 200px;" id="thumbnail-preview"/>
+                </div>
                 <div class="form-group">
                     <label for="thumbnail">{{__('Thumbnail')}}</label>
                     <input type="file" id="thumbnail" name="thumbnail">
@@ -84,5 +88,17 @@
             </form>
         </div>
     </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function (e) {
+            $('#thumbnail').change(function () {
+                let reader = new FileReader();
+                reader.onload = (e) => {
+                    $('#thumbnail-preview').attr('src', e.target.result);
+                }
+                reader.readAsDataURL(this.files[0]);
+            });
+        });
+    </script>
 
 @endsection

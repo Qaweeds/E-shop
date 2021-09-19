@@ -29,8 +29,15 @@ Route::middleware('auth')->namespace('Account')->prefix('account')->group(functi
 });
 
 Route::middleware(['auth', 'admin'])->namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
+    Route::get('/', 'BaseController')->name('admin.index');
+
+    Route::prefix('orders')->group(function () {
+        Route::get('/', 'OrderController@index')->name('orders.index');
+        Route::get('/{order}', 'OrderController@show')->name('orders.show');
+    });
 
     Route::resource('users', 'UserController')->names('users');
     Route::resource('categories', 'CategoryController')->names('categories')->except(['show', 'destroy']);
     Route::resource('products', 'ProductController')->names('products')->except('show');
+
 });
