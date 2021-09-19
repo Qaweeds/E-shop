@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Models\Product;
+use App\Observers\ProductObserver;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Schema;
@@ -26,8 +28,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-
-//        Auth::loginUsingId(1);      //тут можно залогинится
+        Product::observe(ProductObserver::class);
 
         Schema::defaultStringLength(191);
         Paginator::useBootstrap();

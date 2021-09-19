@@ -23,6 +23,7 @@ class ProductUpdateRequest extends FormRequest
      */
     public function rules()
     {
+        ;
         return [
             'category_id' => 'required|numeric|exists:categories,id',
             'description' => 'required|string|min:50',
@@ -30,6 +31,8 @@ class ProductUpdateRequest extends FormRequest
             'price' => 'required|numeric|min:1',
             'discount' => 'required|numeric|digits_between:0,100',
             'in_stock' => 'required|numeric|min:1',
+            'title' => 'required|string|max:255|unique:products,title,' . $this->product->id,
+            'SKU' => 'required|string|min:1|max:35|unique:products,SKU,' . $this->product->id,
         ];
     }
 }

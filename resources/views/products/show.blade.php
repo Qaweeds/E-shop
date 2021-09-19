@@ -9,13 +9,15 @@
         </div>
         <hr>
         <div class="row">
-            <div class="col-md-6">
-                @if($product->thumbnail)
-                    <img src="{{$product->thumbnail}}" alt="{{$product->title}}"
-                         class="card-img-top"
-                         style="display: block; margin: 0 auto">
-                @endif
-            </div>
+            @if(Storage::has($product->thumbnail))
+                <div class="col-md-6">
+                    @if($product->thumbnail)
+                        <img src="{{Storage::url($product->thumbnail)}}" alt="{{$product->title}}"
+                             class="card-img-top"
+                             style="display: block; margin: 0 auto">
+                    @endif
+                </div>
+            @endif
             <div class="col-md-6">
                 <p>Price: {{$product->price}}</p>
                 <p>SKU: {{$product->SKU}}</p>

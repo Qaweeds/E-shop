@@ -32,7 +32,8 @@ class ProductCreateRequest extends FormRequest
             'price' => 'required|numeric|min:1',
             'discount' => 'required|numeric|digits_between:0,100',
             'in_stock' => 'required|numeric|min:1',
-            'thumbnail' => 'sometimes|image',
+            'thumbnail' => 'required|image',
+            'images.*' => 'sometimes|image',
         ];
     }
 }

@@ -17,7 +17,7 @@ class CreateOrderProductTable extends Migration
             $table->id();
 
             $table->foreignId('order_id')->constrained('orders');
-            $table->foreignId('product_id')->constrained('products');
+            $table->foreignId('product_id')->constrained('products')->onDelete();
 
             //pivot fields
             $table->unsignedInteger('quantity');

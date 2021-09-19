@@ -21,17 +21,18 @@
 </head>
 <body>
 
-<div class="col-md-12">
-    @if(session('status'))
-        <div class="alert alert-success">
-            {{session('status')}}
-        </div>
-    @endif
-</div>
-
 <div id="app">
     <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
         <div class="container">
+
+            <div class="col-md-12">
+                @if(session('status'))
+                    <div class="alert alert-success">
+                        {{session('status')}}
+                    </div>
+                @endif
+            </div>
+
             <a class="navbar-brand" href="{{ url('/') }}">
                 {{ config('app.name', 'Laravel') }}
             </a>

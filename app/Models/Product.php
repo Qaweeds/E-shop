@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Service\ImageService;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -35,5 +36,15 @@ class Product extends Model
     public function gallery()
     {
         return $this->hasMany(ProductImage::class);
+    }
+
+
+    public function setThumbnailAttribute($image)
+    {
+        if (!empty($this->attributes['thumbnail'])) {
+            ImageService::remove($this->attributes['thumbnail']);
+        }
+
+        $this->attributes['thumbnail'] = ImageService::upload($image);
     }
 }

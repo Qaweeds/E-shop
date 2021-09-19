@@ -9,7 +9,7 @@
 
             <div class="col-md-6">
                 <div class="row justify-content-center">
-                    <a href="{{route('admin.products.create')}}" class="btn btn-primary">Создать</a>
+                    <a href="{{route('admin.products.create')}}" class="btn btn-primary">{{__('Create')}}</a>
                 </div>
                 <div class="album py-5 bg-light">
                     <div class="container">

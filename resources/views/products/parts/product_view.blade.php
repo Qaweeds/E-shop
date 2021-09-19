@@ -1,6 +1,8 @@
 <div class="col-md-4">
     <div class="card mb-4 shadow-sm">
-        <img src="{{$product->thumbnail}}" alt="" class="card-img-top" height="225">
+        @if(Storage::has($product->thumbnail))
+            <img src="{{Storage::url($product->thumbnail)}}" alt="" class="card-img-top" height="225">
+        @endif
         <div class="card-body">
             <p class="card-title" style="height: 20px;">{{__($product->title)}}</p>
             <hr>
