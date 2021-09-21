@@ -84,9 +84,11 @@
             </div>
         </div>
     </nav>
-    @if(auth()->user()->is_admin() && (Request::is('admin/*') ||(Request::is('admin'))))
-        @include('navigation.admin-menu');
-    @endif
+    @auth
+        @if(auth()->user()->is_admin() && (Request::is('admin/*') ||(Request::is('admin'))))
+            @include('navigation.admin-menu');
+        @endif
+    @endauth
     <main class="py-4">
         @yield('content')
     </main>

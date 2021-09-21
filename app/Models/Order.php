@@ -43,4 +43,16 @@ class Order extends Model
     {
         return Carbon::parse($value)->format('d/m/Y, H:i');
     }
+
+
+    public static function recalc($orders)
+    {
+        foreach ($orders as & $order) {
+            $order->total = 0;
+            $order->products->map(function ($product) use ($order) {
+                $order->total += $product->pivot->quantity * $product->pivot->single_price;
+            });
+            $order->save();
+        }
+    }
 }

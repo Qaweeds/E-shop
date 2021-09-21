@@ -35,7 +35,6 @@ class ProductObserver
 
     public function deleting(Product $product)
     {
-        Cache::put('deleted_product_orders', $product->orders);
 
     }
 
@@ -47,17 +46,7 @@ class ProductObserver
      */
     public function deleted(Product $product)
     {
-        $orders = Cache::get('deleted_product_orders');
 
-        foreach ($orders as & $order) {
-            $order->total = 0;
-            $order->products->map(function ($product) use ($order) {
-                $order->total += $product->pivot->quantity * $product->pivot->single_price;
-            });
-            $order->save();
-        }
-        
-        Cache::forget('deleted_product_orders');
     }
 
     /**

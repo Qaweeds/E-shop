@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\ProductCreateRequest;
 use App\Http\Requests\ProductUpdateRequest;
 use App\Models\Category;
+use App\Models\Order;
 use App\Models\Product;
 use App\Models\ProductImage;
 
@@ -58,9 +59,11 @@ class ProductController extends BaseController
 
     public function destroy(Product $product)
     {
+        $orders = $product->orders;
+        $product->delete();
+        Order::recalc($orders);
 
-
-        if ($product->delete()) return redirect()->route('admin.products.index')->with('status', 'Delete successfully');
+        return redirect()->route('admin.products.index')->with('status', 'Delete successfully');
     }
 
 }
