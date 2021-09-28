@@ -30,7 +30,7 @@ class ProductFactory extends Factory
             'price' => $this->faker->randomFloat(null, 1, 10000),
             'discount' => (rand(1, 6) < 4) ? rand(1, 5) * 10 : null,
             'in_stock' => (rand(0, 100) < 100) ? rand(1, 1000) : 0,
-            'thumbnail' => $this->faker->imageUrl(400, 400),
+            'thumbnail' => $this->faker->image,
         ];
     }
 }

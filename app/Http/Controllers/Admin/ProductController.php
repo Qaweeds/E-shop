@@ -9,6 +9,7 @@ use App\Models\Category;
 use App\Models\Order;
 use App\Models\Product;
 use App\Models\ProductImage;
+use App\Service\ProductImageService;
 
 
 class ProductController extends BaseController
@@ -32,12 +33,10 @@ class ProductController extends BaseController
     public function store(ProductCreateRequest $request)
     {
         $data = $request->validated();
-        $product = Product::query()->create($data);
+        $product = Product::create($data);
 
         if (!empty($data['images'])) {
-            foreach ($data['images'] as $image) {
-                ProductImage::query()->create(['product_id' => $product->id, 'path' => $image]);
-            }
+            ProductImageService::addImagesToProduct($product, $data['images']);
         }
 
         return redirect()->route('admin.products.index')->with('status', 'Product create successfully');
