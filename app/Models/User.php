@@ -64,6 +64,12 @@ class User extends Authenticatable
         return $this->role->name === config('constants.db.roles.admin');
     }
 
+    public function instanceCartName()
+    {
+        return $this->id . '_' . $this->surname;
+    }
+
+    //метод для регистрации
     public static function registerUser($data)
     {
         $role_id = Role::query()->where('name', config('constants.db.roles.costumer'))->value('id');
@@ -75,4 +81,5 @@ class User extends Authenticatable
         if ($user->save()) return $user;
         return $user->save();
     }
+
 }

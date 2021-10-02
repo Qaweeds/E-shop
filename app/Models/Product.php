@@ -47,4 +47,13 @@ class Product extends Model
 
         $this->attributes['thumbnail'] = ImageService::upload($image);
     }
+
+    public function price()
+    {
+        if ($this->discount) {
+//            dd($this);
+            return round($this->price - ($this->price * $this->discount / 100), 2);
+        }
+        return round($this->price, 2);
+    }
 }

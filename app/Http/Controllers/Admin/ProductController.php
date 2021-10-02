@@ -53,7 +53,12 @@ class ProductController extends BaseController
     {
         $data = $request->validated();
 
-        if ($product->update($data)) return redirect()->route('admin.products.index')->with('status', 'Product update successfully');
+        if ($product->update($data)) ;
+        if (!empty($data['images'])) {
+            ProductImageService::addImagesToProduct($product, $data['images']);
+        }
+
+        return redirect()->route('admin.products.index')->with('status', 'Product update successfully');
     }
 
     public function destroy(Product $product)

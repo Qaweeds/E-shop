@@ -19,7 +19,7 @@
                 </div>
             @endif
             <div class="col-md-6">
-                <p>Price: {{$product->price}}</p>
+                <p>Price: {{$product->price()}}</p>
                 <p>SKU: {{$product->SKU}}</p>
                 <p>In-Stock: {{$product->in_stock}}</p>
                 <hr>
@@ -35,10 +35,10 @@
                         <hr>
                         <div>
                             <p>Add to Cart: </p>
-                            <form action="" method="post" class="form-inline">
+                            <form action="{{route('cart.add', $product->id)}}" method="post" class="form-inline">
                                 @csrf
                                 <div class="form-group mx-sm-3 mb-2">
-                                    <input type="hidden" name="price_with_discount">
+                                    <input type="hidden" name="price_with_discount" value="{{$product->price()}}">
                                     <label for="product-count" class="sr-only">Count: </label>
                                     <input type="number" name="product-count" class="form-control"
                                            id="product-count" min="1" max="{{$product->in_stock}}"

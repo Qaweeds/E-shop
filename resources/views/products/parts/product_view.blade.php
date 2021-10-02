@@ -20,7 +20,7 @@
                 <div class="btn-group">
                     <a href="{{route('product.show', $product->id)}}" class="btn btn-sm btn-outline-dark">{{__('Show')}}</a>
                 </div>
-                <span class="text-muted">{{__($product->price)}}$</span>
+                <span class="text-muted">{{__($product->price())}}$</span>
             </div>
         </div>
     </div>

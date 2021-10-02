@@ -3,8 +3,11 @@
 namespace App\Http\Controllers\Account;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\UserUpdateRequest;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class AccountController extends Controller
 {
@@ -18,8 +21,15 @@ class AccountController extends Controller
         return view('account.edit', ['user' => Auth::user()]);
     }
 
-    public function update()
+    public function update(UserUpdateRequest $request)
     {
-        dd(__METHOD__, \request()->all());
+        $data = $request->validated();
+        if (is_null($data['password'])) {
+            unset($data['password']);
+        } else {
+            $data['password'] = Hash::make($data['password']);
+        }
+        auth()->user()->update($data);
+        return redirect()->back()->with(['status' => 'Update successful']);
     }
 }

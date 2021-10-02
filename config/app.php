@@ -178,6 +178,7 @@ return [
 
 
         App\Providers\ImageServiseProvider::class,
+        App\Providers\OrderRepositoryServiceProvider::class,
 
     ],
 
