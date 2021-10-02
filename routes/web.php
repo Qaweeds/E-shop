@@ -27,8 +27,8 @@ Route::delete('/ajax-product-image-delete/{id}', 'ProductImageController@product
 
 Route::middleware('auth')->namespace('Account')->prefix('account')->group(function () {
     Route::get('/', 'AccountController@index')->name('account.index');
-    Route::get('/edit/{id}', 'AccountController@edit')->middleware('can:update,user')->name('account.edit');
-    Route::post('/update', 'AccountController@update')->middleware('can:update,user')->name('account.update');
+    Route::get('/edit', 'AccountController@edit')->name('account.edit');
+    Route::post('/update', 'AccountController@update')->name('account.update');
 });
 Route::middleware(['auth', 'admin'])->namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
     Route::get('/', 'BaseController')->name('admin.index');
