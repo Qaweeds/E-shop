@@ -43,7 +43,6 @@ class ProductUpdateNotification extends Notification
      */
     public function toMail($notifiable)
     {
-
         return (new MailMessage)
             ->line("The product " . $this->product->title . " form your wishlist is available in our shop.")
             ->action('Notification Action', route('product.show', $this->product->id))
