@@ -51,9 +51,14 @@ class Product extends Model
     public function price()
     {
         if ($this->discount) {
-//            dd($this);
             return round($this->price - ($this->price * $this->discount / 100), 2);
         }
         return round($this->price, 2);
     }
+
+    public function followers()
+    {
+        return $this->belongsToMany(User::class, 'wishlist', 'product_id', 'user_id');
+    }
+
 }

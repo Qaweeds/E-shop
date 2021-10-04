@@ -32,4 +32,11 @@ class AccountController extends Controller
         auth()->user()->update($data);
         return redirect()->back()->with(['status' => 'Update successful']);
     }
+
+    public function wishlist()
+    {
+        $wishes = auth()->user()->wishes()->get();
+
+        return view('account.wishlist');
+    }
 }

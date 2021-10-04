@@ -3,12 +3,12 @@
 namespace App\Observers;
 
 use App\Models\Product;
+use App\Notifications\ProductUpdateNotification;
+use App\Service\ImageService;
 use Illuminate\Support\Facades\Cache;
 
 class ProductObserver
 {
-    /* orders or the product*/
-    public $orders;
 
     /**
      * Handle the Product "created" event.
@@ -29,7 +29,9 @@ class ProductObserver
      */
     public function updated(Product $product)
     {
-        //
+        if ($product->getOriginal('in_stock') <= 0 && $product->in_stock > $product->getOriginal('in_stock')) {
+            $product->followers()->get()->each->notify(new ProductUpdateNotification($product));
+        }
     }
 
 
@@ -46,7 +48,7 @@ class ProductObserver
      */
     public function deleted(Product $product)
     {
-
+        ImageService::remove($product->thumbnail);
     }
 
     /**

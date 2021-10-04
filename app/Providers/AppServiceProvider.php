@@ -7,8 +7,9 @@ use App\Models\ProductImage;
 use App\Observers\ProductImageObserver;
 use App\Observers\ProductObserver;
 use Illuminate\Pagination\Paginator;
-use Illuminate\Support\Facades\Auth;
+
 use Illuminate\Support\Facades\Schema;
+
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -30,8 +31,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-//        Product::observe(ProductObserver::class);
+
+
+        Product::observe(ProductObserver::class);
         ProductImage::observe(ProductImageObserver::class);
+
         Schema::defaultStringLength(191);
         Paginator::useBootstrap();
     }

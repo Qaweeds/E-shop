@@ -46,11 +46,21 @@
                                 </div>
                                 <button type="submit" class="btn btn-primary mb-2">Buy</button>
                             </form>
+                            <hr>
+                            @if($wishlist->isUserFollowed($product))
+                                <form action="{{route('wishlist.delete', $product)}}" method="post">
+                                    @csrf @method('delete')
+                                    <input type="submit" class="btn btn-danger" value="{{__('Remove from Wish List')}}">
+                                </form>
+                            @else
+                                <a href="{{route('wishlist.add', $product)}}" class="btn-success btn">{{__('Add To Wish List')}}</a>
+                            @endif
                         </div>
                     @endif
                 @endauth
             </div>
         </div>
+
         <hr>
         <div class="row">
             <div class="col-md-12">

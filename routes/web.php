@@ -27,6 +27,7 @@ Route::delete('/ajax-product-image-delete/{id}', 'ProductImageController@product
 
 Route::middleware('auth')->namespace('Account')->prefix('account')->group(function () {
     Route::get('/', 'AccountController@index')->name('account.index');
+    Route::get('/wishlist', 'AccountController@wishlist')->name('account.wishlist');
     Route::get('/edit', 'AccountController@edit')->name('account.edit');
     Route::post('/update', 'AccountController@update')->name('account.update');
 });
@@ -52,4 +53,8 @@ Route::middleware('auth')->group(function () {
 
     Route::post('order', 'OrderController@store')->name('order.store');
     Route::get('checkout', 'CheckoutController')->name('checkout');
+
+    Route::get('wishlist/{product}/add', 'WishlistController@add')->name('wishlist.add');
+    Route::delete('wishlist/{product}/delete', 'WishlistController@delete')->name('wishlist.delete');
+
 });

@@ -30,7 +30,7 @@ class ProductUpdateRequest extends FormRequest
             'short_description' => 'required|string|min:5|max:150',
             'price' => 'required|numeric|min:1',
             'discount' => 'required|numeric|digits_between:0,100',
-            'in_stock' => 'required|numeric|min:1',
+            'in_stock' => 'required|numeric',
             'thumbnail' => 'sometimes|image',
             'images.*' => 'sometimes|image',
             'title' => 'required|string|max:255|unique:products,title,' . $this->product->id,

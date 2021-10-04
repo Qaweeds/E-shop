@@ -69,6 +69,21 @@ class User extends Authenticatable
         return $this->id . '_' . $this->surname;
     }
 
+    public function wishes()
+    {
+        return $this->belongsToMany(Product::class, 'wishlist', 'user_id', 'product_id');
+    }
+
+    public function addToWishList($product)
+    {
+        $this->wishes()->attach($product);
+    }
+
+    public function removeFromWishList($product)
+    {
+        $this->wishes()->detach($product);
+    }
+
     //метод для регистрации
     public static function registerUser($data)
     {

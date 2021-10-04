@@ -71,6 +71,9 @@
                             </a>
 
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="{{ url('account/wishlist') }}">
+                                    {{ __('Wishlist') }}
+                                </a>
                                 <a class="dropdown-item" href="{{ url('account') }}">
                                     {{ __('Personal') }}
                                 </a>
