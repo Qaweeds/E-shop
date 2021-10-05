@@ -56,6 +56,25 @@
                                 <a href="{{route('wishlist.add', $product)}}" class="btn-success btn">{{__('Add To Wish List')}}</a>
                             @endif
                         </div>
+                        <hr>
+                        <form action="{{route('rating.add', $product)}}" id="addStar" method="post" class="form-horizontal poststars">
+                            @csrf
+                            <div class="form-group required">
+
+                                <div class="col-sm-12 stars">
+                                    @if((!is_null($product->getUserRatingForCurrentProduct())) ?
+                                        $q = $product->getUserRatingForCurrentProduct()->rating : $q = 0)
+                                    @endif
+                                    @for($i = 5; $i >= 1; $i--)
+                                        <input type="radio" class="star star-{{$i}}" value="{{$i}}" id="star-{{$i}}" name="star"
+                                            {{$q == $i ? 'checked': ''}}>
+                                        <label for="star-{{$i}}" class="star star-{{$i}}"></label>
+                                    @endfor
+                                    @if($product->averageRating())  <p class="mt-3">Average rating: {{round($product->averageRating(), 2)}} </p>
+                                    @endif
+                                </div>
+                            </div>
+                        </form>
                     @endif
                 @endauth
             </div>
