@@ -59,6 +59,11 @@ class User extends Authenticatable
         return $this->hasMany(Order::class);
     }
 
+    public function getFullNameAttribute()
+    {
+        return $this->name . ' ' . $this->surname;
+    }
+
     public function is_admin()
     {
         return $this->role->name === config('constants.db.roles.admin');
