@@ -9,8 +9,10 @@ use App\Mail\NewOrder\CustomerNewOrderMail;
 use App\Models\Order;
 use App\Models\Role;
 use App\Models\User;
+use App\Notifications\NewOrderNotification;
 use App\Service\Contracts\NewOrderNotificationInterface;
-use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Log;
+
 
 class NewOrderNotificationService implements NewOrderNotificationInterface
 {
@@ -18,10 +20,8 @@ class NewOrderNotificationService implements NewOrderNotificationInterface
     {
         $admin = User::where('role_id', Role::where('name', config('constants.db.roles.admin'))->first()->id)->first();
 
-        if (!empty($admin)) Mail::to($admin)->send(new AdminNewOrderMail($order));
+        if (!empty($admin)) $admin->notify(new NewOrderNotification(new AdminNewOrderMail($order)));
 
-        Mail::to($order->user)->send(new CustomerNewOrderMail($order));
-
-        return true;
+        $order->user->notify(new NewOrderNotification(new CustomerNewOrderMail($order)));
     }
 }

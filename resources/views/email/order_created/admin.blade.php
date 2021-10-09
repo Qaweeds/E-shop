@@ -1,5 +1,4 @@
 @component('mail::message')
-
     Admin Template
     <h1>Новый заказ</h1>
     <p>От: </p> {{$order->user->full_name}}
