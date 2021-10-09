@@ -20,7 +20,9 @@ class NewOrderNotificationService implements NewOrderNotificationInterface
     {
         $admin = User::where('role_id', Role::where('name', config('constants.db.roles.admin'))->first()->id)->first();
 
-        if (!empty($admin)) $admin->notify(new NewOrderNotification(new AdminNewOrderMail($order)));
+        if (!empty($admin)) {
+            $admin->notify(new NewOrderNotification(new AdminNewOrderMail($order)));
+        }
 
         $order->user->notify(new NewOrderNotification(new CustomerNewOrderMail($order)));
     }

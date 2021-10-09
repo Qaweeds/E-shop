@@ -4,6 +4,7 @@
 namespace App\Repo;
 
 use App\Models\OrderStatus;
+use App\Models\Product;
 use App\Repo\Contracts\OrderRepositoryInterface;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Http\Request;
@@ -32,8 +33,9 @@ class OrderRepository implements OrderRepositoryInterface
                     'single_price' => $product->model->price()
                 ]
             );
-            $product->model->in_stock -= $product->qty;
-            $product->model->update();
+            $item = Product::find($product->id);
+            $item->in_stock -= $product->qty;
+            $item->save();
         });
 
         return $order;
