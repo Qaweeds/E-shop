@@ -11,12 +11,12 @@ class OrderController extends Controller
 {
     public function store(OrderStoreRequest $request, OrderRepositoryInterface $orderRepository)
     {
-        try {
-            $order = $orderRepository->create($request);
+        $order = $orderRepository->create($request);
+        if (!is_null($order)) {
             Cart::instance('cart')->destroy();
             return redirect()->home()->with(['status' => "Your order '#$order->id' was successfully created"]);
-        } catch (\Exception $exception) {
-            dd($exception);
+        } else {
+            return back()->with(['status' => 'Probably not enough money']);
         }
     }
 }

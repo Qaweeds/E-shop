@@ -2,6 +2,7 @@
 
 namespace Tests\Unit;
 
+use App\Http\Controllers\OrderController;
 use App\Http\Requests\OrderStoreRequest;
 use App\Models\Category;
 use App\Models\Order;
@@ -24,12 +25,12 @@ class OrderTest extends TestCase
 
     protected $product, $category, $user;
 
-    protected function setUpVariables(): void
+    protected function setUpVariables($balance): void
     {
         (new OrderStatusSeeder)->run();
         (new RolesTableSeeder())->run();
 
-        $this->user = User::factory()->create();
+        $this->user = User::factory()->create(['balance' => $balance]);
         $this->category = Category::factory()->create();
         $this->product = Product::factory(3, ['category_id' => $this->category->id])->create();
 
@@ -39,7 +40,7 @@ class OrderTest extends TestCase
 
     public function test_order_create()
     {
-        $this->setUpVariables();
+        $this->setUpVariables(100000);
         $data = [
             "name" => $this->faker->name,
             "surname" => $this->faker->lastName,
@@ -59,6 +60,7 @@ class OrderTest extends TestCase
 
         $order = $order->create($request);
 
+        $this->assertEquals(auth()->user()->balance, $this->user->balance - $order->total); //сумма списалась
         $this->assertInstanceOf(Order::class, $order);  //заказ создан
 
         //Проверка контроллера OrderController
@@ -67,4 +69,31 @@ class OrderTest extends TestCase
         $this->assertEquals(0, $cart->count());  // корзина пуста
 
     }
+
+    public function test_order_create_when_not_enough_money(){
+        $this->setUpVariables(100);
+        $data = [
+            "name" => $this->faker->name,
+            "surname" => $this->faker->lastName,
+            "phone" => $this->faker->e164PhoneNumber,
+            "email" => $this->faker->email,
+            "country" => $this->faker->country,
+            "city" => $this->faker->city,
+            "address" => $this->faker->address,
+        ];
+        $cart = Cart::instance('cart');
+        foreach ($this->product as $product) {
+            $cart->add($product->id, $product->title, 3, $product->price())->associate($product);
+        }
+
+        $order = new OrderRepository;
+        $request = new OrderStoreRequest($data);
+
+        $order = $order->create($request);
+
+        $this->assertEquals(auth()->user()->balance, $this->user->balance); //сумма не списалась
+        $this->assertNull($order);  //заказ  не создан создан
+
+    }
+
 }

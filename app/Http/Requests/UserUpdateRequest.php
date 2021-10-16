@@ -30,6 +30,7 @@ class UserUpdateRequest extends FormRequest
             'password' => 'confirmed|min:6|nullable',
             'birthdate' => 'required|date|before: 18 years ago',
             'phone' => 'required|numeric|digits_between:10,15|unique:users,phone,' . auth()->user()->id,
+            'balance' => 'required|numeric',
         ];
     }
 }
