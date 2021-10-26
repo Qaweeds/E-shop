@@ -24,6 +24,11 @@ class Product extends Model
     ];
 
 
+    public function scopeAvailable()
+    {
+        return $this->where('in_stock', '>' , 0);
+    }
+
     public function category()
     {
         return $this->belongsTo(Category::class);

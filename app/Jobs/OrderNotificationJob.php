@@ -2,7 +2,7 @@
 
 namespace App\Jobs;
 
-use App\Service\NewOrderNotificationService;
+use App\Service\OrderNotificationService;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -11,7 +11,7 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Log;
 
-class NewOrderNotificationJob implements ShouldQueue
+class OrderNotificationJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
@@ -34,6 +34,6 @@ class NewOrderNotificationJob implements ShouldQueue
      */
     public function handle()
     {
-        NewOrderNotificationService::send($this->order);
+        OrderNotificationService::newOrder($this->order);
     }
 }

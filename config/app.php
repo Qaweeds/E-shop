@@ -179,7 +179,7 @@ return [
         App\Providers\ImageServiseProvider::class,
         App\Providers\OrderRepositoryServiceProvider::class,
         App\Providers\WishListServiceProvider::class,
-        App\Providers\NewOrderNotificationServiceProvider::class,
+        App\Providers\OrderNotificationServiceProvider::class,
 
     ],
 

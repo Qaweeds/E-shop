@@ -2,9 +2,8 @@
 
 namespace App\Observers;
 
-use App\Jobs\NewOrderNotificationJob;
+use App\Jobs\OrderNotificationJob;
 use App\Models\Order;
-use App\Service\NewOrderNotificationService;
 
 class OrderObserver
 {
@@ -16,7 +15,7 @@ class OrderObserver
      */
     public function created(Order $order)
     {
-        NewOrderNotificationJob::dispatch($order);
+        OrderNotificationJob::dispatch($order);
 
     }
 

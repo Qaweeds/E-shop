@@ -8,7 +8,7 @@ use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 use Illuminate\Support\Facades\Mail;
 
-class NewOrderNotification extends Notification
+class OrderNotification extends Notification
 {
     use Queueable;
     private $mail;
