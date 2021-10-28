@@ -6,7 +6,16 @@
             <div class="col-md-6">
                 <div class="row justify-content-around">
                     <h4>{{__('Order')}} #{{$order->id}}</h4>
-                    <h5>{{$order->status->name}}</h5>
+                        <form method="post" action="{{route('admin.orders.status_update')}}" id="order_status_update_form" class="mb-1">
+                            @csrf @method('put')
+                            <input type="hidden" name="order_id" value="{{$order->id}}" >
+                            <select class="form-control" name="order_status_id" id="order_status_select">
+                                <label for="order_status_select"></label>
+                                @foreach($statuses as $status)
+                                    <option value="{{$status->id}}" @if($status->id === $order->status_id) selected @endif >{{$status->name}}</option>
+                                @endforeach
+                            </select>
+                        </form>
                     <h5>{{$order->created_at}}</h5>
                 </div>
                 <table class="table">
@@ -47,4 +56,12 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('script')
+    <script>
+        $('#order_status_select').change(function () {
+            $('#order_status_update_form').submit();
+        });
+    </script>
 @endsection

@@ -6,6 +6,7 @@ namespace App\Service;
 
 use App\Mail\NewOrder\AdminNewOrderMail;
 use App\Mail\NewOrder\CustomerNewOrderMail;
+use App\Mail\NewOrder\OrderStatusUpdateMail;
 use App\Models\Order;
 use App\Models\Role;
 use App\Models\User;

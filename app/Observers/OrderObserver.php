@@ -2,7 +2,8 @@
 
 namespace App\Observers;
 
-use App\Jobs\OrderNotificationJob;
+use App\Jobs\NewOrderNotificationJob;
+use App\Jobs\OrderStatusUpdateJob;
 use App\Models\Order;
 
 class OrderObserver
@@ -15,7 +16,7 @@ class OrderObserver
      */
     public function created(Order $order)
     {
-        OrderNotificationJob::dispatch($order);
+        NewOrderNotificationJob::dispatch($order);
 
     }
 
@@ -27,7 +28,9 @@ class OrderObserver
      */
     public function updated(Order $order)
     {
-        //
+        if ($order->getOriginal('status_id') != $order->status_id) {
+            OrderStatusUpdateJob::dispatch($order);
+        }
     }
 
     /**

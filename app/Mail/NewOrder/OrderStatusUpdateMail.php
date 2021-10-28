@@ -31,6 +31,6 @@ class OrderStatusUpdateMail extends Mailable
      */
     public function build()
     {
-        return $this->markdown('email.order_created.customer')->with(['order' => $this->order]);
+        return $this->markdown('email.order_created.status_update')->with(['order' => $this->order]);
     }
 }

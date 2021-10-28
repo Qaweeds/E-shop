@@ -54,6 +54,7 @@ Route::middleware('auth')->group(function () {
         Route::prefix('orders')->group(function () {
             Route::get('/', 'OrderController@index')->name('orders.index');
             Route::get('/{order}', 'OrderController@show')->name('orders.show');
+            Route::put('order_update', 'OrderController@statusUpdate')->name('orders.status_update');
         });
         Route::resource('users', 'UserController')->names('users');
         Route::resource('categories', 'CategoryController')->names('categories')->except(['show', 'destroy']);
