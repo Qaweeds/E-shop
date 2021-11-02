@@ -14,6 +14,7 @@
         </div>
         <div class="col-md-8">
             <a href="{{route('account.edit')}}" class="btn btn-outline-primary">Edit</a>
+            <a href="{{route('account.orders.list')}}" class="btn btn-outline-dark">{{__('Orders')}}</a>
         </div>
     </div>
 @endsection

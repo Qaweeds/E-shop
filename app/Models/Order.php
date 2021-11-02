@@ -56,4 +56,14 @@ class Order extends Model
             $order->save();
         }
     }
+
+    public function getCanBeCancelledAttribute(){
+        return $this->status->name != config('constants.db.order_statuses.completed') &&
+            $this->status->name != config('constants.db.order_statuses.cancelled');
+    }
+    public function payback()
+    {
+        $this->user->balance += $this->total;
+        $this->user->save();
+    }
 }
