@@ -45,9 +45,9 @@ Route::middleware('auth')->group(function () {
         Route::get('/wishlist', 'AccountController@wishlist')->name('account.wishlist');
         Route::get('/edit', 'AccountController@edit')->name('account.edit');
         Route::post('/update', 'AccountController@update')->name('account.update');
-        Route::get('/orders', 'AccountController@ordersList')->name('account.orders.list');
-        Route::get('/orders/{order}', 'AccountController@orderShow')->name('account.orders.show');
-        Route::put('/orders/{order}', 'AccountController@orderCancel')->name('account.orders.cancel');
+        Route::get('/orders', 'OrderController@index')->name('account.orders.index');
+        Route::get('/orders/{order}', 'OrderController@show')->name('account.orders.show')->middleware('can:view,order');
+        Route::put('/orders/{order}', 'OrderController@cancel')->name('account.orders.cancel')->middleware('can:update,order');
     });
 
     // админ роуты

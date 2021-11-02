@@ -29,6 +29,11 @@
                 {{session('status')}}
             </div>
         @endif
+            @if(session('warn'))
+                <div class="alert alert-success">
+                    {{session('warn')}}
+                </div>
+            @endif
     </div>
     <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
         <div class="container">
