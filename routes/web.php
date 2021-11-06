@@ -48,6 +48,8 @@ Route::middleware('auth')->group(function () {
         Route::get('/orders', 'OrderController@index')->name('account.orders.index');
         Route::get('/orders/{order}', 'OrderController@show')->name('account.orders.show')->middleware('can:view,order');
         Route::put('/orders/{order}', 'OrderController@cancel')->name('account.orders.cancel')->middleware('can:update,order');
+
+        Route::get('telegram/add', 'TelegramController')->name('account.telegram.add');
     });
 
     // админ роуты

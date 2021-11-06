@@ -12,7 +12,7 @@ class OrderController extends Controller
 {
     public function index()
     {
-        $orders = Order::query()->where('user_id', Auth::id())->with('status')->get();
+        $orders = Order::query()->where('user_id', Auth::id())->with('status')->orderByDesc('created_at')->get();
 
         return view('account.orders.index', compact('orders'));
     }
