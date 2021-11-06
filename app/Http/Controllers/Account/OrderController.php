@@ -31,7 +31,6 @@ class OrderController extends Controller
                 }
                 $order->update(['status_id' => OrderStatus::query()
                     ->where('name', config('constants.db.order_statuses.cancelled'))->value('id')]);
-
                 return redirect()->route('account.orders.index')->with('status', 'Order was cancelled');
             }catch (\Exception $e){
                 return redirect()->route('account.orders.index')->with('warn', $e->getMessage());

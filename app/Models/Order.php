@@ -23,6 +23,8 @@ class Order extends Model
         'city',
         'address',
         'total',
+        'vendor_order_id',
+        'transaction_id',
     ];
 
     public function user()
@@ -57,6 +59,9 @@ class Order extends Model
         }
     }
 
+    public function transaction(){
+        return $this->hasOne(Transaction::class, 'vendor_order_id','transaction_id');
+    }
     public function getCanBeCancelledAttribute(){
         return $this->status->name != config('constants.db.order_statuses.completed') &&
             $this->status->name != config('constants.db.order_statuses.cancelled');
