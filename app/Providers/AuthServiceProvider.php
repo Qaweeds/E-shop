@@ -13,7 +13,7 @@ class AuthServiceProvider extends ServiceProvider
      * @var array
      */
     protected $policies = [
-        \App\Models\User::class => \App\Policies\UserPolicy::class,
+        \App\Models\Order::class => \App\Policies\OrderPolicy::class,
     ];
 
     /**
@@ -25,6 +25,5 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        //
     }
 }

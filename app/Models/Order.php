@@ -66,4 +66,9 @@ class Order extends Model
         $this->user->balance += $this->total;
         $this->user->save();
     }
+
+    public function getFullAddressAttribute()
+    {
+        return $this->county . ', ' . $this->city . ', ' . $this->address;
+    }
 }

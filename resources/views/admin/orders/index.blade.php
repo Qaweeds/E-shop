@@ -18,6 +18,7 @@
                                         <th class="text-center" scope="col">{{__('Date')}}</th>
                                         <th class="text-center" scope="col">{{__('Status')}}</th>
                                         <th class="text-center" scope="col">{{__('Total')}}</th>
+                                        <th class="text-center" scope="col" style="min-width: 250px;">{{__('Invoice')}}</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -27,6 +28,10 @@
                                             <td class="text-center"> {{$order->created_at}}</td>
                                             <td class="text-center"> {{$order->status->name}}</td>
                                             <td class="text-center"> {{$order->total}}</td>
+                                            <td class="text-center">
+                                                <a href="{{route('admin.orders.invoice.view', $order->id)}}" class="btn btn-info">{{__('View')}}</a>
+                                                <a href="{{route('admin.orders.invoice.send', $order->id)}}" class="btn btn-outline-dark">{{__('Send')}}</a>
+                                            </td>
                                         </tr>
                                     @endforeach
                                     </tbody>

@@ -15,6 +15,7 @@
         "laravel/sanctum": "^2.11",
         "laravel/tinker": "^2.5",
         "laravel/ui": "^3.3",
+        "laraveldaily/laravel-invoices": "2.0",
         "pschocke/laravel-telegram-login-widget": "^1.2",
         "srmklive/paypal": "~3.0",
         "willvincent/laravel-rateable": "^2.3"

@@ -50,6 +50,8 @@ Route::middleware('auth')->group(function () {
         Route::put('/orders/{order}', 'OrderController@cancel')->name('account.orders.cancel')->middleware('can:update,order');
 
         Route::get('telegram/add', 'TelegramController')->name('account.telegram.add');
+
+        Route::get('invoice/{order}', 'InvoiceController')->name('invoice.download');
     });
 
     // админ роуты
@@ -60,6 +62,9 @@ Route::middleware('auth')->group(function () {
             Route::get('/', 'OrderController@index')->name('orders.index');
             Route::get('/{order}', 'OrderController@show')->name('orders.show');
             Route::put('order_update', 'OrderController@statusUpdate')->name('orders.status_update');
+
+            Route::get('invoice/{order}/view', 'InvoiceController@view')->name('orders.invoice.view');
+            Route::get('invoice/{order}/send', 'InvoiceController@send')->name('orders.invoice.send');
         });
         Route::resource('users', 'UserController')->names('users');
         Route::resource('categories', 'CategoryController')->names('categories')->except(['show', 'destroy']);
