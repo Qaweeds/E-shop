@@ -26,6 +26,6 @@ class CreateShoppingcartTable extends Migration
      */
     public function down()
     {
-        Schema::drop(config('cart.database.table'));
+        Schema::dropIfExists(config('cart.database.table'));
     }
 }
