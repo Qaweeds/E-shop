@@ -11,7 +11,6 @@ class HomeController extends Controller
 
     public function __invoke()
     {
-//        dd(route('account.orders.show', 2));
         $products = Product::query()->limit(10)->with('category')->inRandomOrder()->get();
         $categories = Category::query()->limit(4)->inRandomOrder()->get();
 
