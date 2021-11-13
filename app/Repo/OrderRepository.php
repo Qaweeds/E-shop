@@ -2,6 +2,7 @@
 
 namespace App\Repo;
 
+use App\Jobs\NewOrderNotificationJob;
 use App\Models\Order;
 use App\Models\OrderStatus;
 use App\Models\Transaction;
@@ -21,6 +22,7 @@ class OrderRepository implements OrderRepositoryInterface
             $request['total'] = $total;
             $order = $user->orders()->create($request);
             $this->addProductsToOrder($order);
+            NewOrderNotificationJob::dispatch($order);
             return $order;
         });
         return $result;

@@ -2,10 +2,14 @@
 
 namespace App\Notifications;
 
+use App\Repo\InvoiceRepository;
+use App\Service\Contracts\StoreServiceInterface;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
+use NotificationChannels\Telegram\TelegramFile;
+use NotificationChannels\Telegram\TelegramMessage;
 
 class InvoiceNotification extends Notification
 {
@@ -29,7 +33,7 @@ class InvoiceNotification extends Notification
      */
     public function via($notifiable)
     {
-        return ['mail'];
+        return ['telegram'];
     }
 
     /**
@@ -45,6 +49,20 @@ class InvoiceNotification extends Notification
             ->line('Your Invoice.')
             ->attachData($this->url,  'invoice.pdf', ['mime' => 'application/pdf'])
             ->line('Thank you for using our application!');
+    }
+
+    public function toTelegram($notifiable)
+    {
+        $aws = app(StoreServiceInterface::class);
+        $invoice = InvoiceRepository::create($notifiable)->save('s3');
+        $doc = $aws->get($invoice->filename);
+
+        return TelegramFile::create()
+            ->to($notifiable->user->telegram_id)
+            ->content('Order# '. $notifiable->id . ' invoice' . "\r\n")
+            ->options(['parse_mode' => ''])
+            ->document($doc, $invoice->filename)
+            ->button('К заказу', route('account.orders.show', $notifiable->id));
     }
 
     /**

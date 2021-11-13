@@ -16,9 +16,6 @@ class OrderObserver
      */
     public function created(Order $order)
     {
-        if($order->products()) {
-            NewOrderNotificationJob::dispatch($order);
-        }
     }
 
     /**
