@@ -86,7 +86,7 @@ paypal.Buttons({
     onApprove: function (data, actions) {
         if (data.hasOwnProperty('orderID')) {
             return fetch('/paypal/order/' + data.orderID + '/capture/', {
-                method: 'post',
+                method: 'POST',
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
                     'Accept': 'application/json'
