@@ -23,7 +23,7 @@ class ProductImageFactory extends Factory
     public function definition()
     {
         return [
-            'path' => $this->faker->image(storage_path('app/public/productImages'), 400, 400)
+            'path' => $this->faker->image
         ];
     }
 }

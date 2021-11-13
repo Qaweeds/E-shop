@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-Route::namespace('api')->group(function () {
+Route::namespace('Api')->group(function () {
     Route::post('login', 'LoginController');
 
     Route::namespace('v1')->prefix('v1')->group(function () {

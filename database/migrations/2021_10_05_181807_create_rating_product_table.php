@@ -31,6 +31,11 @@ class CreateRatingProductTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('rating_product');
+
+        Schema::table('ratings', function (Blueprint $table) {
+            $table->dropForeign('ratings_user_id_foreign');
+        });
+        Schema::dropIfExists('ratings');
+
     }
 }

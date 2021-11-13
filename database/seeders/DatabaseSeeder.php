@@ -6,6 +6,7 @@ use App\Models\Category;
 use App\Models\Order;
 use App\Models\Product;
 use App\Models\ProductImage;
+use App\Models\Role;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 
@@ -21,6 +22,12 @@ class DatabaseSeeder extends Seeder
         $this->call(RolesTableSeeder::class);
         $this->call(OrderStatusSeeder::class);
 
+        $admin = [
+            'email' => 'admin@admin.com',
+            'password' => \Hash::make('admin'),
+            'role_id' => Role::query()->where('name', config('constants.db.roles.admin'))->value('id')
+        ];
+        User::factory($admin)->create();
         User::factory(20)->create();
 
         Category::factory(10)->create()->each(function ($cat) {
