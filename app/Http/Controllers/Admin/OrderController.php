@@ -11,7 +11,7 @@ class OrderController extends BaseController
 {
     public function index()
     {
-        $orders = Order::with('status')->paginate(10);
+        $orders = Order::with('status')->orderByDesc('created_at')->paginate(10);
 
         return view('admin.orders.index', compact('orders'));
     }
