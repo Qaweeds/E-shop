@@ -30,6 +30,7 @@ class InvoiceRepository implements InvoiceRepositoryInterface
             ->series(__('Order'))
             ->sequence($order->id)
             ->addItems($items)
+            ->taxRate(config('cart.tax'))
             ->notes(__('Thank you for purchase'))
             ->filename(now()->timestamp . '_' . $order->id . '_' . $order->user->surname)
             ->logo(public_path('vendor/invoices/sample-logo.png'));
