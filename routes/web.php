@@ -70,5 +70,13 @@ Route::middleware('auth')->group(function () {
         Route::resource('categories', 'CategoryController')->names('categories')->except(['show', 'destroy']);
         Route::resource('products', 'ProductController')->names('products')->except('show');
     });
+});
 
+
+Route::namespace('Payments')->group(function () {
+    Route::prefix('paypal')->group(function () {
+        Route::post('order/create', 'PaypalController@create');
+        Route::post('order/{orderId}/capture', 'PaypalController@capture');
+        Route::get('order/{orderId}/thank-you', 'PaypalController@thankYou')->middleware('auth');
+    });
 });

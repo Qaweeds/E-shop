@@ -8,5 +8,5 @@ use Illuminate\Http\Request;
 
 interface OrderRepositoryInterface
 {
-    public function create(Request $request);
+    public function create($request);
 }

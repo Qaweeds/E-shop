@@ -1,50 +1,42 @@
 <?php
 
-
 namespace App\Repo;
 
 use App\Models\Order;
 use App\Models\OrderStatus;
-use App\Models\Product;
+use App\Models\Transaction;
 use App\Repo\Contracts\OrderRepositoryInterface;
 use Gloudemans\Shoppingcart\Facades\Cart;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Redirect;
 
 class OrderRepository implements OrderRepositoryInterface
 {
-
-    public function create(Request $request)
+    public function create($request): Order
     {
-        $order = null;
-        $user = auth()->user();
-        $cartTotal = (float)Cart::instance('cart')->total;
-        $status_id = OrderStatus::query()->where('name', config('constants.db.order_statuses.in_process'))->value('id');
-        $data = $request->all();
-        $data['status_id'] = $status_id;
-        $data['total'] = $cartTotal;
-
-        if ($user->balance > $cartTotal) {
-            try {
-
-                DB::beginTransaction();
-
-                $order = $user->orders()->create($data);
-                $this->addProductToOrder($order);
-                $user->update(['balance' => $user->balance - $cartTotal]);
-
-                DB::commit();
-
-            } catch
-            (\Exception $exception) {
-                DB::rollBack();
-            }
-        }
-        return $order;
+        $result = DB::transaction(function () use ($request) {
+            $total = Cart::instance('cart')->total();
+            $user = auth()->user();
+            $request['status_id'] = OrderStatus::query()->where('name', config('constants.db.order_statuses.paid'))->value('id');
+            $request['total'] = $total;
+            $order = $user->orders()->create($request);
+            $this->addProductsToOrder($order);
+            return $order;
+        });
+        return $result;
     }
 
-    private function addProductToOrder(Order $order)
+    public function setTransaction(string $transaction_order_id, Transaction $transaction)
+    {
+        $order = Order::where('vendor_order_id', $transaction_order_id)->first();
+        if ($order) {
+            $order->transaction_id = $transaction->id;
+            $order->status_id = OrderStatus::query()->where('name', config('constants.db.order_statuses.paid'))->value('id');
+            $order->save();
+        }
+    }
+
+    private function addProductsToOrder(Order $order)
     {
         Cart::instance('cart')->content()->groupBy('id')->each(function ($item) use ($order) {
             $product = $item[0];
@@ -55,9 +47,11 @@ class OrderRepository implements OrderRepositoryInterface
                     'single_price' => $product->model->price()
                 ]
             );
-            $item = Product::find($product->id);
-            $item->in_stock -= $product->qty;
-            $item->save();
+            $in_stock = $product->model->in_stock - $product->qty;
+
+            if (!$product->model->update(['in_stock' => $in_stock])) {
+                throw new \Exception("Something wrong with product id={$product->id} updating process", 200);
+            }
         });
     }
 }

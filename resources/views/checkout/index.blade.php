@@ -10,7 +10,7 @@
                 @endif
             </div>
             <div class="col-md-8">
-                <form action="{{route('order.store')}}" method="post">
+                <form id="checkout-form">
                     @csrf
                     <div class="form-group row">
                         <label for="name" class="col-md-4 col-form-label text-md-right">{{__('Name')}}</label>
@@ -59,11 +59,11 @@
                             <input id="address" name="address" type="text" class="form-control" value="{{old('address')}}">
                         </div>
                     </div>
-                    <div class="form-group row">
-                        <div class="col-md-10 text-right">
-                            <input type="submit" class="btn btn-success" value="Create Order">
-                        </div>
-                    </div>
+{{--                    <div class="form-group row">--}}
+{{--                        <div class="col-md-10 text-right">--}}
+{{--                            <input type="submit" class="btn btn-success" value="Create Order">--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
                 </form>
             </div>
             <div class="col-md-4">
@@ -110,8 +110,8 @@
                         <td>Total</td>
                         <td>{{Cart::total()}}</td>
                     </tr>
-
                 </table>
+                @include('payments.paypal')
             </div>
         </div>
     </div>
