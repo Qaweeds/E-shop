@@ -17,7 +17,7 @@ class OrderRepository implements OrderRepositoryInterface
         $result = DB::transaction(function () use ($request) {
             $total = Cart::instance('cart')->total();
             $user = auth()->user();
-            $request['status_id'] = OrderStatus::query()->where('name', config('constants.db.order_statuses.paid'))->value('id');
+            $request['status_id'] = OrderStatus::query()->where('name', config('constants.db.order_statuses.in_process'))->value('id');
             $request['total'] = $total;
             $order = $user->orders()->create($request);
             $this->addProductsToOrder($order);

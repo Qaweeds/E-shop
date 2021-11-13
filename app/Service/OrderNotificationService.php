@@ -12,6 +12,7 @@ use App\Models\Role;
 use App\Models\User;
 use App\Notifications\OrderNotification;
 use App\Notifications\TelegramOrderNotification;
+use App\Notifications\TelegramOrderNotificationStatusChange;
 use App\Service\Contracts\OrderNotificationInterface;
 
 
@@ -30,6 +31,6 @@ class OrderNotificationService implements OrderNotificationInterface
     }
     public static function statusUpdate(Order $order)
     {
-        $order->notify(new OrderNotification(new OrderStatusUpdateMail($order)));
+        $order->notify(new TelegramOrderNotificationStatusChange());
     }
 }
