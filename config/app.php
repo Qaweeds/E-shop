@@ -180,7 +180,8 @@ return [
         App\Providers\OrderRepositoryServiceProvider::class,
         App\Providers\WishListServiceProvider::class,
         App\Providers\OrderNotificationServiceProvider::class,
-
+        App\Providers\InvoiceRepositoryProvider::class,
+        App\Providers\StoreServiceProvider::class,
     ],
 
     /*
