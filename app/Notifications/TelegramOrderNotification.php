@@ -42,17 +42,15 @@ class TelegramOrderNotification extends Notification
 
     public function toTelegram($notifiable)
     {
-        $tm = TelegramMessage::create()
+       return TelegramMessage::create()
             ->to($notifiable->user->telegram_id)
             ->content('Заказ №' . $notifiable->id . "\r\n" .
                 ' Успешно создан' . "\r\n" .
                 'Сумма: ' . $notifiable->total . '$' . "\r\n" .
                 'Статус: ' . $notifiable->status->name . '.' . "\r\n" .
-                'Спасибо за заказ!'. "\r\n" . route('account.orders.show', $notifiable->id));
-//            Где бы я не менял УРЛ, в это месте route всегда возвращает http://localhost, если жестко забить ссылку с доменом, который указал при
-//             регистрации бота - кнопка работает. Думаю, с отправкой файла та же проблема
-//         $tm->button('Подробнее', route('account.orders.show', $notifiable->id));
-        return $tm;
+                'Спасибо за заказ!'. "\r\n")
+            ->options(['parse_mode' => ''])
+            ->button('К заказу', route('account.orders.show', $notifiable->id));
     }
 
     /**

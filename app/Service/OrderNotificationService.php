@@ -21,11 +21,11 @@ class OrderNotificationService implements OrderNotificationInterface
     {
         $admin = User::where('role_id', Role::where('name', config('constants.db.roles.admin'))->first()->id)->first();
 
-        if (!empty($admin)) {
-            $admin->notify(new OrderNotification(new AdminNewOrderMail($order)));
-        }
-
-        $order->notify(new OrderNotification(new CustomerNewOrderMail($order)));
+//        if (!empty($admin)) {
+//            $admin->notify(new OrderNotification(new AdminNewOrderMail($order)));
+//        }
+//
+//        $order->notify(new OrderNotification(new CustomerNewOrderMail($order)));
         $order->notify(new TelegramOrderNotification());
     }
     public static function statusUpdate(Order $order)
