@@ -21,31 +21,31 @@
                         @each('cart.parts.product_view', Cart::instance('cart')->content(), 'row')
                         </tbody>
                     </table>
-                @else
-                    <h3 class="text-center">There is no products in cart</h3>
-                @endif
-                <hr>
-                <table class="table table-dark" style="width: 300px; float: right">
-                    <tr>
-                        <td colspan="2"></td>
-                        <td>{{__('Subtotal')}}</td>
-                        <td>{{Cart::subtotal()}}</td>
-                    </tr>
-                    <tr>
-                        <td colspan="2"></td>
-                        <td>{{__('Tax')}}</td>
-                        <td>{{Cart::tax()}}</td>
-                    </tr>
-                    <tr>
-                        <td colspan="2"></td>
-                        <td>{{__('Total')}}</td>
-                        <td>{{Cart::total()}}</td>
-                    </tr>
-                </table>
+                    <table class="table table-dark" style="width: 300px; float: right">
+                        <tr>
+                            <td colspan="2"></td>
+                            <td>{{__('Subtotal')}}</td>
+                            <td>{{Cart::subtotal()}}</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2"></td>
+                            <td>{{__('Tax')}}</td>
+                            <td>{{Cart::tax()}}</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2"></td>
+                            <td>{{__('Total')}}</td>
+                            <td>{{Cart::total()}}</td>
+                        </tr>
+                    </table>
             </div>
             <div class="col-md-12 text-right">
                 <a href="{{route('checkout')}}" class="btn btn-outline-success">{{__('Proceed to checkout')}}</a>
             </div>
+            @else
+                <h3 class="text-center">There is no products in cart</h3>
+            @endif
+            <hr>
         </div>
     </div>
 @endsection
