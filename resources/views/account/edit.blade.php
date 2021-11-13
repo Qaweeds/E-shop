@@ -72,14 +72,13 @@
                         <input id="password-confirm" type="password" class="form-control" name="password_confirmation">
                     </div>
                 </div>
-                <div class="form-group">
-                    <label for="balance">{{ __('Balance') }}</label>
-
-                    <div class="col-md-6">
-                        <input id="balance" type="number" class="form-control" name="balance" value="{{old('balance',
-                        $user->balance)}}">
-                    </div>
-                </div>
+{{--                <div class="form-group">--}}
+{{--                    <label for="balance">{{ __('Balance') }}</label>--}}
+{{--                    <div class="col-md-6">--}}
+{{--                        <input id="balance" type="number" class="form-control" name="balance" value="{{old('balance',--}}
+{{--                        $user->balance)}}">--}}
+{{--                    </div>--}}
+{{--                </div>--}}
                 <div class="form-group mt-2">
                     <div>
                         <button type="submit" class="btn btn-primary">Update</button>

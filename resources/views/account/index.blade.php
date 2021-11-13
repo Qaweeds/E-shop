@@ -22,7 +22,6 @@
             <p>Surname: {{$user->surname}}</p>
             <p>Email: {{$user->email}}</p>
             <p>birthdate: {{$user->birthdate}}</p>
-            <p>Balance: {{$user->balance}}</p>
             <p>Date of register: {{\Carbon\Carbon::parse($user->created_at)->format('d-m-Y')}}</p>
         </div>
         <div class="col-md-8">
