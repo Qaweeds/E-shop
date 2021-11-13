@@ -80,3 +80,6 @@ Route::namespace('Payments')->group(function () {
         Route::get('order/{orderId}/thank-you', 'PaypalController@thankYou')->middleware('auth');
     });
 });
+
+
+Route::get('test', 'TestController')->middleware('admin');
