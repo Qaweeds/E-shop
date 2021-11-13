@@ -55,8 +55,8 @@ paypal.Buttons({
         });
 
         return $.ajax({
-            url: '/paypal/order/create/',
-            type: 'POST',
+            url: '/paypal/order/create',
+            type: 'post',
             dataType: 'json',
             data: JSON.stringify(fields),
             beforeSend: function () {
@@ -85,7 +85,7 @@ paypal.Buttons({
     // Call your server to finalize the transaction
     onApprove: function (data, actions) {
         if (data.hasOwnProperty('orderID')) {
-            return fetch('/paypal/order/' + data.orderID + '/capture/', {
+            return fetch('/paypal/order/' + data.orderID + '/capture', {
                 method: 'POST',
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
