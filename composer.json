@@ -6,7 +6,10 @@
     "license": "MIT",
     "require": {
         "php": "^7.3|^8.0",
+        "ext-gd": "*",
+        "ext-intl": "*",
         "bumbummen99/shoppingcart": "^4.0",
+        "dompdf/dompdf": "^1.0",
         "fakerphp/faker": "^1.16",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",
@@ -16,13 +19,11 @@
         "laravel/sanctum": "^2.11",
         "laravel/tinker": "^2.5",
         "laravel/ui": "^3.3",
-        "laraveldaily/laravel-invoices": "2.0",
+        "laraveldaily/laravel-invoices": "^2.2",
         "league/flysystem-aws-s3-v3": "~1.0",
         "pschocke/laravel-telegram-login-widget": "^1.2",
         "srmklive/paypal": "~3.0",
-        "willvincent/laravel-rateable": "^2.3",
-        "ext-intl": "*",
-        "ext-gd": "*"
+        "willvincent/laravel-rateable": "^2.3"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.6",
