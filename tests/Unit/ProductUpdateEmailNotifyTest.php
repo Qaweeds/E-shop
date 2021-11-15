@@ -40,9 +40,8 @@ class ProductUpdateEmailNotifyTest extends TestCase
         Cart::instance('wishlist')->add($this->product->id, $this->product->title, 1, $this->product->price())->associate($this->product);
 
         $this->product->update(['in_stock' => 0]);
+        $count = $this->product->instock;
         $this->product->update(['in_stock' => 10]);
-
-        // ставил dd() в нотификации, до отправки почты доходит, но в лог не пишет. наверно тесто впринципе не пишут ничего в логи. Гугл сильно не
-        // помог
+        $this->assertEquals($count+10, $this->product->in_stock);
     }
 }
