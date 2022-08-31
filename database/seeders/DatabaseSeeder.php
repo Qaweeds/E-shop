@@ -21,21 +21,7 @@ class DatabaseSeeder extends Seeder
     {
         $this->call(RolesTableSeeder::class);
         $this->call(OrderStatusSeeder::class);
+        $this->call(FactorySeeder::class);
 
-        $admin = [
-            'email' => 'admin@admin.com',
-            'password' => \Hash::make('admin'),
-            'role_id' => Role::query()->where('name', config('constants.db.roles.admin'))->value('id')
-        ];
-        User::factory($admin)->create();
-        User::factory(20)->create();
-
-        Category::factory(10)->create()->each(function ($cat) {
-            Product::factory(rand(5, 10))->state(['category_id' => $cat->id])->create()->each(function ($product) {
-                ProductImage::factory(rand(1, 3))->state(['product_id' => $product->id])->create();
-            });
-        });
-
-        Order::factory(100)->create(); // pivot внутри фабрики реализован
     }
 }

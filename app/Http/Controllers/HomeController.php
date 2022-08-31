@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Product;
+use Database\Factories\ProductFactory;
 use Illuminate\Support\Facades\Hash;
 
 class HomeController extends Controller

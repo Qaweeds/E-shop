@@ -2,12 +2,19 @@
 
 namespace Database\Factories;
 
-use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Collection;
 
 class ProductFactory extends Factory
 {
+    public function __construct($count = null, ?Collection $states = null, ?Collection $has = null, ?Collection $for = null, ?Collection $afterMaking = null, ?Collection $afterCreating = null, $connection = null)
+    {
+        parent::__construct($count, $states, $has, $for, $afterMaking, $afterCreating, $connection);
+
+        $this->faker->addProvider(FakerImageProvider::class);
+    }
+
     /**
      * The name of the factory's corresponding model.
      *

@@ -21,10 +21,10 @@ class ImageService implements ImageServiseInterface
         if ($is_string = is_string($image)) {
             $imageData = explode('.', $image);
         }
-        $imagePath = 'productImages/' . implode('/', mb_str_split(Str::random(8), 2)) . '/' . Str::random(16) . '.'
+        $imagePath = 'productImages/' . implode('/', mb_str_split(Str::random(8), 2)) . '/' . Str::random() . '.'
             . (!$is_string ? $image->getClientOriginalExtension() : $imageData[1]);
 
-        Storage::disk('s3')->put($imagePath, File::get($image));
+        Storage::put($imagePath, File::get($image));
 
         return $imagePath;
     }
